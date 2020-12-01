@@ -16,6 +16,7 @@ expressapp.use(limiter); // apply to all requests
 
 /* Set up fs-extra */
 const fsextra = require('fs-extra') // This uses fs-extra not fs
+fsextra.writeJson('data.json', {name: 'fs-extra'});
 
 /* Set up variables */
 const version = prompt('What version');
