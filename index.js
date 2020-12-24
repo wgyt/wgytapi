@@ -5,6 +5,12 @@
 /* Set up EXPRESS JS*/
 const express = require('express');
 const expressapp = express()
+expressapp.listen(3000, () => {
+	console.clear()
+  console.log('hi, the server is started')
+	fsextra.writeFile('data/log.log', '👍');
+	console.log("👍")
+});
 
 /* Set up Prompt */
 const prompt = require('prompt-sync')();
@@ -16,19 +22,15 @@ expressapp.use(limiter); // apply to all requests
 
 /* Set up fs-extra */
 const fsextra = require('fs-extra') // This uses fs-extra not fs
-fsextra.writeJson('data.json', {name: 'fs-extra'});
-
+fsextra.writeFile('data/log.log', '✅');
+console.log("✅")
 /* Set up variables */
-const version = prompt('What version');
+fsextra.writeFile('data/log.log', '❔');
+console.log("❔")
+const version = "1.3.3WEB" // <<<< VERSION GOES THERE
+fsextra.writeFile('data/log.log', '❕');
 const tokenlist = process.env.PUBLIC // or private
-
-
-expressapp.listen(3000, () => {
-  console.clear()
-  console.log('hi, the server is started')
-	console.log("Version is:")
-	console.log(version)
-});
+console.log("❕")
 
 /* Define functions */
 function scratchApi(user){
