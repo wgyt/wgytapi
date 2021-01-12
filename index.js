@@ -29,7 +29,7 @@ fsextra.writeFile('data/log.log', '❔');
 console.log("❔")
 const version = "1.3.3WEB" // <<<< VERSION GOES THERE
 fsextra.writeFile('data/log.log', '❕');
-const tokenlist = process.env.PUBLIC // or private
+const tokenlist = "*"// process.env.PUBLIC // or private
 console.log("❕")
 
 /* Define functions */
@@ -75,9 +75,7 @@ expressapp.all('/about', function(req, res) {
 expressapp.all('/docs', function(req, res) {
   var token = req.query.token;
   var user_name = req.query.username;
-  res.redirect(301,
-    'https://github.com/wgyt735yt/wgytapi/wiki' +
-    req.path)
+  res.redirect(301,'https://documentation.wgyt.tk/apiwgyttk')
 });
 expressapp.all('/scratchsound', function(req, res) {
   var token = req.query.token;
