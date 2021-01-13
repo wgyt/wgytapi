@@ -79,7 +79,9 @@ function scratchApiUser (user) {
       })
     };
   })
+	
   // todo: merge data into one MEGA JSON FILE™
+
 }
 
 /* API SITES */
