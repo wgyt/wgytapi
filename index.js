@@ -8,7 +8,6 @@ const expressapp = express()
 expressapp.listen(3000, () => {
 	console.clear()
   console.log('hi, the server is started')
-	fsextra.writeFile('data/log.log', '👍');
 	console.log("👍")
 });
 
@@ -22,19 +21,42 @@ expressapp.use(limiter); // apply to all requests
 
 /* Set up fs-extra */
 const fsextra = require('fs-extra') // This uses fs-extra not fs
-fsextra.writeFile('data/log.log', '✅');
-console.log("✅")
+/* Set Up fetch */
+const fetch = require('node-fetch');
 /* Set up variables */
-fsextra.writeFile('data/log.log', '❔');
-console.log("❔")
 const version = "1.3.3WEB" // <<<< VERSION GOES THERE
-fsextra.writeFile('data/log.log', '❕');
 const tokenlist = "*"// process.env.PUBLIC // or private
-console.log("❕")
 
 /* Define functions */
-function scratchApi(user){
+function scratchApiUser(user){
+	jeffaloapi=`https://my-ocular.jeffalo.net/api/user/${user}`
+	leftymainapi=`https://scratchdb.lefty.one/v2/user/info/${user}/`
+	leftyprojapi=`https://scratchdb.lefty.one/v2/project/info/user/${user}/`
+	leftyforumapi=`https://scratchdb.lefty.one/v2/forum/user/info/${user}/`
+	leftypostapi=`https://scratchdb.lefty.one/v2/forum/user/posts/${user}/`
+	// Make files
+	fsextra.ensureFile(`scratch/jeffalo/${user}.json`, err => {})	
+	fsextra.ensureFile(`scratch/leftymain/${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftyproj/${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftyforum/${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftypost/${user}.json`, err => {})
 	// GET SCRATCH DATA
+	fetch(jeffaloapi)
+    .then(res => res.json())
+    .then(json => console.log(json));
+	fetch(leftymainapi)
+    .then(res => res.json())
+    .then(json => console.log(json));
+	fetch(leftyprojapi)
+    .then(res => res.json())
+    .then(json => console.log(json));
+	fetch(leftyforumapi)
+    .then(res => res.json())
+    .then(json => console.log(json));
+	fetch(leftypostapi)
+    .then(res => res.json())
+    .then(json => console.log(json));
+
 	return console.log(user)
 }
 
@@ -127,7 +149,7 @@ expressapp.all('/scratch', function(req, res) {
   var username = req.query.username;
   if (tokenlist.includes(token) === (token.length === 18)) {
     // Get data about user
-		scratchApi(username)
+		scratchApiUser(username)
 		// Serve Data
 		res.status(200).json({
       "path": "/scratch",
