@@ -12,7 +12,7 @@ expressapp.listen(3000, () => {
 })
 
 /* Set up fs-extra */
-const fsextra = require('fs-extra') // This uses fs-extra not fs
+const fsextra = require('fs-extra') // This uses fs-extra not fsextra
 /* Set Up request */
 const request = require('request')
 /* Set up variables */
@@ -20,17 +20,21 @@ const version = '1.3.3WEB' // <<<< VERSION GOES THERE
 const tokenlist = '*'// process.env.PUBLIC or private
 
 /* Define functions */
-function scratchApiUser (user) {
+function scratchApiUser (user){
   fsextra.ensureFile(`scratch/jeffalo/${user}.json`)
     .then(() => {
-      console.log('success!')
     })
     .catch(err => {
       console.error(err)
     })
   fsextra.ensureFile(`scratch/lefty/${user}.json`)
     .then(() => {
-      console.log('success!')
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  fsextra.ensureFile(`scratch/users/${user}.json`)
+    .then(() => {
     })
     .catch(err => {
       console.error(err)
@@ -44,14 +48,12 @@ function scratchApiUser (user) {
       return console.log(error)
     };
     if (!error && res.statusCode == 200) {
-      console.log(body)
       fsextra.writeJson(`scratch/jeffalo/${user}.json`, {
         color: body.color,
         status: body.status,
         name: body.name
       }, err => {
         if (err) return console.error(err)
-        console.log('success!')
       })
     };
   })
@@ -62,7 +64,6 @@ function scratchApiUser (user) {
       return console.log(error)
     };
     if (!error && res.statusCode == 200) {
-      console.log(body)
       fsextra.writeJson(`scratch/lefty/${user}.json`, {
         username: body.username,
         id: body.id,
@@ -75,13 +76,13 @@ function scratchApiUser (user) {
         type: body.status
       }, err => {
         if (err) return console.error(err)
-        console.log('success!')
+
       })
     };
   })
 	
   // todo: merge data into one MEGA JSON FILE™
-
+	
 }
 
 /* API SITES */
@@ -173,14 +174,14 @@ expressapp.all('/scratch', function (req, res) {
   const username = req.query.username
   if (tokenlist.includes(token) === (token.length === 18)) {
     // Get data about user
-    scratchApiUser(username)
+    data = scratchApiUser(username)
     // Serve Data
     res.status(200).json({
       path: '/scratch',
       token: token,
       user: username,
       description: 'Hi there! This is the Scratch API',
-      Data: '',
+      data: data,
       docs: '/./docs',
       version: version
     })
