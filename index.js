@@ -23,6 +23,8 @@ expressapp.use(limiter); // apply to all requests
 const fsextra = require('fs-extra') // This uses fs-extra not fs
 /* Set Up fetch */
 const fetch = require('node-fetch');
+/* Set Up json merge */
+var jsonMerger = require("json-merger");
 /* Set up variables */
 const version = "1.3.3WEB" // <<<< VERSION GOES THERE
 const tokenlist = "*"// process.env.PUBLIC // or private
@@ -35,12 +37,14 @@ function scratchApiUser(user){
 	leftyforumapi=`https://scratchdb.lefty.one/v2/forum/user/info/${user}/`
 	leftypostapi=`https://scratchdb.lefty.one/v2/forum/user/posts/${user}/`
 	// Make files
-	fsextra.ensureFile(`scratch/jeffalo/${user}.json`, err => {})	
-	fsextra.ensureFile(`scratch/leftymain/${user}.json`, err => {})
-	fsextra.ensureFile(`scratch/leftyproj/${user}.json`, err => {})
-	fsextra.ensureFile(`scratch/leftyforum/${user}.json`, err => {})
-	fsextra.ensureFile(`scratch/leftypost/${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/jeffalo${user}.json`, err => {})	
+	fsextra.ensureFile(`scratch/leftymain${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftyproj${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftyforum${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/leftypost${user}.json`, err => {})
+	fsextra.ensureFile(`scratch/${user}.json`, err => {})
 	// GET SCRATCH DATA
+	// TODO: SAVE JSON DATA
 	fetch(jeffaloapi)
     .then(res => res.json())
     .then(json => console.log(json));
@@ -56,7 +60,11 @@ function scratchApiUser(user){
 	fetch(leftypostapi)
     .then(res => res.json())
     .then(json => console.log(json));
-
+	// merge json files
+	var result = jsonMerger.mergeFiles([`scratch/jeffalo${user}.json`, `scratch/leftymain${user}.json`,`scratch/leftyproj${user}.json`,`scratch/leftyforum${user}.json`,`scratch/leftypost${user}.json`]);
+	fsextra.writeJson(`scratch/${user}.json`, result, err => {
+		if (err) return console.error(err)
+	})
 	return console.log(user)
 }
 
