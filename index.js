@@ -58,7 +58,7 @@ const version = "2.0-WEB"; // set version
 			.json({
 				path: "/",
 				description: "Hi there! This is WGYTAPI",
-				docs: "/api/docs",
+				docs: "/docs",
 				version: version
 			});
 	});
@@ -74,15 +74,25 @@ const version = "2.0-WEB"; // set version
 	app.all("/docs", function (req, res) {
 		res.redirect(301, "https://documentation.wgyt.tk/apiwgyttk");
 	});
-	app.all("/scratch", function (req, res) {
-		data = scratchApiUser(req.query.username);
+	app.all("/scratch", (req, res) => {
 		res
 			.status(200)
 			.json({
 				path: "/scratch",
 				description: "Hi there! This is the Scratch API",
+				docs: "/docs",
+				version: version
+			});
+	});
+	app.all("/scratch/user", function (req, res) {
+		data = scratchApiUser(req.query.username);
+		res
+			.status(200)
+			.json({
+				path: "/scratch/user",
+				description: "Hi there! This is the Scratch User API",
 				data: data,
-				docs: "/./api/docs",
+				docs: "/docs",
 				version: version
 			});
 	});
