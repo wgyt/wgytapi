@@ -74,27 +74,6 @@ const version = "2.0-WEB"; // set version
 	app.all("/docs", function (req, res) {
 		res.redirect(301, "https://documentation.wgyt.tk/apiwgyttk");
 	});
-	app.all("/sound", function (req, res) {
-		res
-			.status(200)
-			.json({
-				path: "/scratchsound",
-				description: "Hi there! This is the ScratchSound API",
-				docs: "/./api/docs",
-				version: version
-			});
-	});
-	app.all("/sound/song/all", function (req, res) {
-		res
-			.status(200)
-			.json({
-				path: "/scratchsound",
-				description: "This returns the Song list",
-				data: "coming soon",
-				docs: "/./api/docs",
-				version: version
-			});
-	});
 	app.all("/scratch", function (req, res) {
 		data = scratchApiUser(req.query.username);
 		res
