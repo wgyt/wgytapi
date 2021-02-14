@@ -1,19 +1,25 @@
 {
-  "name": "replDB",
-  "version": "1.0.0",
-  "description": "",
+  "name": "apiwgyttk",
+  "version": "2.0.0",
+  "description": "wgyt api",
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
-    "express-rate-limit": "^5.2.3",
-    "fs-extra": "^9.0.1",
-    "prompt-sync": "^4.2.0"
+    "fs-extra": "^9.1.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wgytwebsites/api.wgyt.tk.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wgytwebsites/api.wgyt.tk/issues"
+  },
+  "homepage": "https://github.com/wgytwebsites/api.wgyt.tk#readme"
 }
